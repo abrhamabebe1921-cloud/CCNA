@@ -1,1 +1,75 @@
 
+### SW1
+
+
+enable
+configure terminal
+hostname SW1
+
+interface vlan 1
+ip address 192.168.1.201 255.255.255.0
+no shutdown
+exit
+
+ip default-gateway 192.168.1.254
+end
+copy running-config startup-config
+
+
+### SW2
+
+
+enable
+configure terminal
+hostname SW2
+
+interface vlan 1
+ip address 192.168.1.202 255.255.255.0
+no shutdown
+exit
+
+ip default-gateway 192.168.1.254
+end
+copy running-config startup-config
+
+
+### Router1
+
+
+enable
+configure terminal
+hostname Router1
+
+interface gigabitEthernet 0/0/0
+ip address 192.168.1.254 255.255.255.0
+no shutdown
+exit
+
+interface loopback 0
+ip address 192.168.100.254 255.255.255.255
+exit
+
+end
+copy running-config startup-config
+
+
+### Verify
+
+
+show ip interface brief
+
+
+### PC
+
+IP Address:      192.168.1.2
+Subnet Mask:     255.255.255.0
+Default Gateway: 192.168.1.254
+
+
+### Test
+
+
+ping 192.168.1.201
+ping 192.168.1.202
+ping 192.168.1.254
+ping 192.168.100.254
